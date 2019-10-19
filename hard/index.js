@@ -9,6 +9,8 @@ app.get("/", function(req, res) {
   res.sendFile(__dirname + "/index.html");
 });
 io.on("connection", function(socket) {
+  socket.emit("rooms", rooms);
+
   socket.on("put", function(msg) {
     socket.join(msg.gid);
     socket.broadcast.to(msg.gid).emit("put", msg);
