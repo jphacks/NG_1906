@@ -23,7 +23,7 @@ export const state = () => ({
     },
     {
       genre: 'file',
-      icon: 'mdi-folder-multiple',
+      icon: 'md i-folder-multiple',
       id: 'roomC',
       name: 'ファイル１'
     },
@@ -38,7 +38,9 @@ export const state = () => ({
   roomA: [{ name: 'ryo', content: 'おはよう' }, { name: 'ken', content: 'おはよう' }],
   roomB: [{ name: 'ryo', content: 'あああ' }, { name: 'ken', content: 'iiii' }],
   roomC: [{ name: '過去問A', icon: 'mdi-file-pdf-outline', id: '222' }, { name: '練習問題A', icon: 'mdi-file-pdf-outline', id: '444' }],
-  roomD: [{ name: '練習問題', icon: 'mdi-pdf', id: '555' }]
+  roomD: [{ name: '練習問題', icon: 'mdi-pdf', id: '555' }],
+  rc1: [],
+  rc2: []
 })
 
 export const mutations = {
