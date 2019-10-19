@@ -4,7 +4,7 @@ var http = require("http").Server(app);
 const io = require("socket.io")(http);
 const PORT = process.env.PORT || 7000;
 var rooms = { "chat room": "rc1", "world wide web": "rc2" };
-app.use(express.static(__dirname + "/public"));
+app.use(express.static(__dirname + "/public/dist"));
 app.get("/", function(req, res) {
   res.sendFile(__dirname + "/index.html");
 });

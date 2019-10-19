@@ -63,7 +63,6 @@ export const getters = {
 
 export const actions = {
   socket_rooms ({ commit, state }, json) {
-    alert(JSON.stringify(json))
     for (const key in json) {
       let room = null
       if (state[json[key]] === null || state[json[key]] === undefined) { commit('setRoom', json[key]) }
@@ -102,7 +101,6 @@ export const actions = {
       if (room === null) { return }
       commit('ADD_ROOMS', room)
     }
-    alert(JSON.stringify(state))
   },
   socket_put ({ commit, state }, msg) {
     switch (msg.lid[1]) {
@@ -111,9 +109,7 @@ export const actions = {
           name: msg.username,
           content: msg.body
         }
-        alert('date:' + JSON.stringify(date))
         commit('ADD_MESSAGE', { id: msg.lid, index: date })
-        // alert('msg' + JSON.stringify(state))
         break
       case 's':
 
@@ -130,11 +126,9 @@ export const actions = {
   },
   async setJoinedRoom ({ commit, state }, room) {
     try {
-      alert(JSON.stringify(room))
       switch (room.genre) {
         case 'chat':
           await commit('JoinedChat', room.id)
-          alert(JSON.stringify(state.user))
           break
         case 'file':
           await commit('JoinedFile', room.id)

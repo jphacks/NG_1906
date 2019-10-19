@@ -44,10 +44,6 @@ export default {
     ...mapGetters(['getChats'])
   },
   methods: {
-    Debug () {
-      alert(JSON.stringify(this.user))
-      alert(JSON.stringify(this.chat))
-    },
     async sendMessage () {
       const msg = {
         lid: this.user.chat,
