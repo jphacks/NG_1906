@@ -1,6 +1,6 @@
 <template>
   <v-row column justify-center align-center>
-    <v-col v-for="file in files[user.room.file]" :key="file.id" md="3">
+    <v-col v-for="file in files[user.file]" :key="file.id" md="3">
       <v-card
         class="mx-auto"
         max-width="344"

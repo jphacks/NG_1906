@@ -1,3 +1,4 @@
+/*
 import createPersistedState from 'vuex-persistedstate'
 
 export default ({ store, isHMR, isClient }) => {
@@ -11,3 +12,4 @@ export default ({ store, isHMR, isClient }) => {
     })(store) // vuex plugins can be connected to store, even after creation
   })
 }
+*/

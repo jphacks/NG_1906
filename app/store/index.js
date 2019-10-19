@@ -46,6 +46,7 @@ export const state = () => ({
 
 export const mutations = {
   setUser: (state, user) => (state.user = user),
+  setRoom: (state, key) => (state[key] = []),
   JoinedChat: (state, roomId) => (state.user.chat = roomId),
   JoinedFile: (state, roomId) => (state.user.file = roomId),
   JoinedCast: (state, roomId) => (state.user.cast = roomId),
@@ -65,6 +66,7 @@ export const actions = {
     alert(JSON.stringify(json))
     for (const key in json) {
       let room = null
+      if (state[json[key]] === null || state[json[key]] === undefined) { commit('setRoom', json[key]) }
       switch (json[key][1]) {
         case 'c':
           room = {
@@ -100,6 +102,7 @@ export const actions = {
       if (room === null) { return }
       commit('ADD_ROOMS', room)
     }
+    alert(JSON.stringify(state))
   },
   socket_put ({ commit, state }, msg) {
     switch (msg.lid[1]) {
