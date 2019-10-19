@@ -1,61 +1,57 @@
 <template>
   <v-row column justify-center align-center>
-    <v-col v-for="room in rooms" :key="room.id" md="3">
+    <v-col v-for="file in files[user.room.file]" :key="file.id" md="3">
       <v-card
         class="mx-auto"
         max-width="344"
-        @click="joinRoom(room)"
       >
         <v-card-title>
           <v-row justify="center">
             <p class="display-1 text--primary mx-auto">
-              {{ room.name }}
+              {{ file.name }}
             </p>
           </v-row>
         </v-card-title>
         <v-card-text>
           <v-row justify="center">
             <div>
-              <v-icon size="60px">
-                {{ room.icon }}
+              <v-icon size="100px">
+                {{ file.icon }}
               </v-icon>
             </div>
           </v-row>
           <br>
           <v-divider />
-          <div class="text--primary">
-            ユーザーのアイコン
-          </div>
         </v-card-text>
-        <v-card-actions />
+        <v-card-actions>
+          <v-btn
+            text
+            color="deep-purple accent-4"
+          >
+            ダウンロード
+          </v-btn>
+        </v-card-actions>
       </v-card>
-      <create-room class="fiexd_btn" />
     </v-col>
   </v-row>
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
-import CreateRoom from '~/components/CreateRoom.vue'
+import { mapState } from 'vuex'
 
 export default {
-  name: 'Rooms',
+  name: 'Files',
   components: {
-    CreateRoom
   },
   data () {
     return {
     }
   },
   computed: {
-    ...mapState(['user', 'rooms'])
+    ...mapState(['user', 'files'])
   },
   methods: {
-    ...mapActions(['setJoinedRoom']),
-    async joinRoom (room) {
-      await this.setJoinedRoom(room)
-      this.$router.replace('/' + room.genre)
-    }
+
   }
 }
 </script>

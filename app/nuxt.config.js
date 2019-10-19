@@ -31,7 +31,8 @@ module.exports = {
    ** Plugins to load before mounting the App
    */
   plugins: [
-    { src: '~/plugins/localStorage', ssr: false }
+    { src: '~/plugins/localStorage', ssr: false },
+    { src: '~/plugins/socket.io', ssr: false }
   ],
   /*
    ** Nuxt.js dev-modules

@@ -57,7 +57,7 @@ export default {
         id: '111111',
         icon: ''
       })
-      // HTTP通信でサーバにデータを送ると同時にサーバ側でprivate_idを作成して、受け取る。
+      this.$socket.client.emit('join', this.userName)
     }
   }
 }
