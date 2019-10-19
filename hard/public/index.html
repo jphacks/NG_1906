@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>デバック用</title>
+    <link rel="stylesheet" type="text/css" href="index.css" />
+  </head>
+
+  <body>
+    <h2>デバック用</h2>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-4">
+          <h3>PUT</h3>
+          <form id="message_form">
+            <div class="form-group ">
+              <label for="inputState">lid</label>
+              <select id="inputState" class="form-control">
+                <option selected>roomA</option>
+                <option>roomB</option>
+                <option>roomC</option>
+                <option>roomD</option>
+              </select>
+            </div>
+            <div class="form-group ">
+              <label for="Input1">username</label>
+              <input type="text" class="form-control" name="q1" value="ochi" />
+            </div>
+            <div class="form-group ">
+              <label for="Input2">body</label>
+              <input type="text" class="form-control" name="q2" value="Hello" />
+            </div>
+            <div class="form-group">
+              <label for="Input3">q3</label>
+              <input type="text" class="form-control" name="q3" value="3" />
+            </div>
+            <div class="form-group ">
+              <label for="Input4">q4</label>
+              <input type="text" class="form-control" name="q4" value="4" />
+            </div>
+            <div class="form-group">
+              <label for="Input5">q5</label>
+              <input type="text" class="form-control" name="q5" value="5" />
+            </div>
+            <button type="button" id="push" class="btn btn-primary ">
+              送信
+            </button>
+          </form>
+        </div>
+        <div class="col-sm-6">
+          <h3>ROOMS</h3>
+          <ol id="rooms"></ol>
+        </div>
+      </div>
+      <h2>ここに受け取ったjson履歴</h2>
+      <div class="col-md-7">
+        <ol id="messages"></ol>
+      </div>
+    </div>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <script src="/socket.io/socket.io.js"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+    ></script>
+    <script src="main.js"></script>
+  </body>
+</html>
