@@ -54,7 +54,7 @@ export default {
     ...mapActions(['setJoinedRoom']),
     async joinRoom (room) {
       await this.setJoinedRoom(room)
-      this.$router.replace('/' + room.genre)
+      await this.$router.replace('/' + room.genre)
     }
   }
 }

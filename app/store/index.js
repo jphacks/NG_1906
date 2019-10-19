@@ -4,11 +4,9 @@ export const state = () => ({
     name: '',
     id: '',
     // ユーザーが現在入っているルームの情報
-    room: {
-      'chat': '',
-      'file': '',
-      'cast': ''
-    }
+    chat: '',
+    file: '',
+    cast: ''
   },
   rooms: [
     {
@@ -36,24 +34,30 @@ export const state = () => ({
       name: 'ファイル２'
     }
   ],
-  chat: {
-    roomA: [{ name: 'ryo', content: 'おはよう' }, { name: 'ken', content: 'おはよう' }],
-    roomB: [{ name: 'ryo', content: 'あああ' }, { name: 'ken', content: 'iiii' }]
-  },
-  files: {
-    roomC: [{ name: '過去問A', icon: 'mdi-file-pdf-outline', id: '222' }, { name: '練習問題A', icon: 'mdi-file-pdf-outline', id: '444' }],
-    roomD: [{ name: '練習問題', icon: 'mdi-pdf', id: '555' }]
-  }
+
+  roomA: [{ name: 'ryo', content: 'おはよう' }, { name: 'ken', content: 'おはよう' }],
+  roomB: [{ name: 'ryo', content: 'あああ' }, { name: 'ken', content: 'iiii' }],
+  roomC: [{ name: '過去問A', icon: 'mdi-file-pdf-outline', id: '222' }, { name: '練習問題A', icon: 'mdi-file-pdf-outline', id: '444' }],
+  roomD: [{ name: '練習問題', icon: 'mdi-pdf', id: '555' }],
+  rc1: [],
+  rc2: []
+
 })
 
 export const mutations = {
   setUser: (state, user) => (state.user = user),
-  setJoinedRoom: (state, room) => (state.user.room[room.genre] = room.id),
+  JoinedChat: (state, roomId) => (state.user.chat = roomId),
+  JoinedFile: (state, roomId) => (state.user.file = roomId),
+  JoinedCast: (state, roomId) => (state.user.cast = roomId),
   ADD_ROOMS: (state, rooms) => state.rooms.push(rooms),
-  ADD_MESSAGE: (state, roomId, userName, msgContent) => state.chat[roomId].push({
-    name: userName,
-    content: msgContent
-  })
+  ADD_MESSAGE: (state, { id, index }) => state[id].push(index)
+}
+
+export const getters = {
+  getChats (state) {
+    const roomId = state.user.chat
+    return state[roomId]
+  }
 }
 
 export const actions = {
@@ -100,7 +104,13 @@ export const actions = {
   socket_put ({ commit, state }, msg) {
     switch (msg.lid[1]) {
       case 'c':
-        commit('ADD_MESSAGE', msg.lid, msg.username, msg.body)
+        const date = {
+          name: msg.username,
+          content: msg.body
+        }
+        alert('date:' + JSON.stringify(date))
+        commit('ADD_MESSAGE', { id: msg.lid, index: date })
+        // alert('msg' + JSON.stringify(state))
         break
       case 's':
 
@@ -115,7 +125,25 @@ export const actions = {
   setUser ({ commit }, user) {
     commit('setUser', user)
   },
-  setJoinedRoom ({ commit }, room) {
-    commit('setJoinedRoom', room)
+  async setJoinedRoom ({ commit, state }, room) {
+    try {
+      alert(JSON.stringify(room))
+      switch (room.genre) {
+        case 'chat':
+          await commit('JoinedChat', room.id)
+          alert(JSON.stringify(state.user))
+          break
+        case 'file':
+          await commit('JoinedFile', room.id)
+          break
+        case 'cast':
+          await commit('JoinedCast', room.id)
+          break
+        default:
+          break
+      }
+    } catch (error) {
+      alert(error)
+    }
   }
 }

@@ -1,7 +1,7 @@
 <template>
   <v-row column justify-center align-center>
     <v-col xs="12" sm="12" md="8">
-      <div v-for="chat in chat[user.room.chat]" :key="chat.id">
+      <div v-for="chat in getChats" :key="chat.id">
         <v-row>
           <v-col col="2">
             {{ chat.name }}
@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 
 export default {
   name: 'Chat',
@@ -40,20 +40,22 @@ export default {
     }
   },
   computed: {
-    ...mapState(['user', 'chat'])
+    ...mapState(['user', 'chat']),
+    ...mapGetters(['getChats'])
   },
   methods: {
     Debug () {
       alert(JSON.stringify(this.user))
       alert(JSON.stringify(this.chat))
     },
-    sendMessage () {
+    async sendMessage () {
       const msg = {
-        lid: this.user.room.chat,
+        lid: this.user.chat,
         username: this.user.name,
         body: this.message
       }
-      this.$socket.client.emit('put', msg)
+      await this.$socket.client.emit('put', msg)
+      this.message = ''
     }
   }
 }
