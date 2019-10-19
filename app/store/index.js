@@ -107,7 +107,8 @@ export const actions = {
       case 'c':
         const date = {
           name: msg.username,
-          content: msg.body
+          content: msg.body,
+          mine: false
         }
         commit('ADD_MESSAGE', { id: msg.lid, index: date })
         break
@@ -123,6 +124,15 @@ export const actions = {
   },
   setUser ({ commit }, user) {
     commit('setUser', user)
+  },
+  setMessage ({ commit }, msg) {
+    commit('ADD_MESSAGE', { id: msg.lid,
+      index: {
+        name: msg.username,
+        content: msg.body,
+        mine: true
+      }
+    })
   },
   async setJoinedRoom ({ commit, state }, room) {
     try {

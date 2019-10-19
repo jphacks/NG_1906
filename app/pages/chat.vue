@@ -13,21 +13,23 @@
         <v-divider />
       </div>
     </v-col>
-    <v-form>
-      <v-text-field
-        v-model="message"
-        outlined
-        label="メッセージ"
-      />
-    </v-form>
-    <v-btn @click="sendMessage()">
-      送信
-    </v-btn>
+    <v-col col="12">
+      <v-form>
+        <v-text-field
+          v-model="message"
+          outlined
+          label="メッセージ"
+        />
+      </v-form>
+      <v-btn @click="sendMessage()">
+        送信
+      </v-btn>
+    </v-col>
   </v-row>
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex'
+import { mapState, mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'Chat',
@@ -44,12 +46,15 @@ export default {
     ...mapGetters(['getChats'])
   },
   methods: {
+    ...mapActions(['setMessage']),
     async sendMessage () {
       const msg = {
         lid: this.user.chat,
         username: this.user.name,
         body: this.message
       }
+
+      this.setMessage(msg)
       await this.$socket.client.emit('put', msg)
       this.message = ''
     }
