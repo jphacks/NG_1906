@@ -12,20 +12,28 @@ io.on("connection", function(socket) {
   socket.emit("rooms", rooms);
 
   socket.on("put", function(msg) {
-    socket.join(msg.gid);
-    socket.broadcast.to(msg.gid).emit("put", msg);
+    socket.join(msg.lid);
+    socket.broadcast.to(msg.lid).emit("put", msg);
     console.log(msg);
   });
   socket.on("get", function(msg) {
-    socket.join(msg.gid);
-    socket.broadcast.to(msg.gid).emit("get", msg);
+    socket.join(msg.lid);
+    socket.broadcast.to(msg.lid).emit("get", msg);
     console.log("get");
     console.log(msg);
   });
   socket.on("delete", function(msg) {
-    socket.join(msg.gid);
-    socket.broadcast.to(msg.gid).emit("delete", msg);
+    socket.join(msg.lid);
+    socket.broadcast.to(msg.lid).emit("delete", msg);
     console.log("delete");
+    console.log(msg);
+  });
+  socket.on("room add", function(msg) {
+    for (key in Object.keys(msg)) {
+      rooms[key] = msg[key];
+    }
+    socket.broadcast.emit("rooms", rooms);
+    console.log("room add");
     console.log(msg);
   });
 });
