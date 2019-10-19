@@ -49,49 +49,49 @@ export const state = () => ({
 export const mutations = {
   setUser: (state, user) => (state.user = user),
   setJoinedRoom: (state, room) => (state.user.room[room.genre] = room.id),
-  SOCKET_ROOMS: (state, rooms) => state.rooms.push(rooms)
+  ADD_ROOMS: (state, rooms) => state.rooms.push(rooms)
 }
 
 export const actions = {
-  socket_rooms ({ commit }, json) {
-    const rooms = []
+  socket_rooms ({ commit, state }, json) {
+    alert(JSON.stringify(json))
     for (const key in json) {
+      let room = null
       switch (json[key][1]) {
         case 'c':
-          rooms.push(
-            {
-              genre: 'chat',
-              icon: 'mdi-wechat',
-              id: json[key],
-              name: key
-            }
-          )
+          room = {
+            genre: 'chat',
+            icon: 'mdi-wechat',
+            id: json[key],
+            name: key
+          }
+
           break
         case 's':
-          rooms.push(
-            {
-              genre: 'file',
-              icon: 'mdi-folder-multiple',
-              id: json[key],
-              name: key
-            }
-          )
+          room = {
+            genre: 'file',
+            icon: 'mdi-folder-multiple',
+            id: json[key],
+            name: key
+          }
+
           break
         case 'd':
-          rooms.push(
-            {
-              genre: 'cast',
-              icon: 'mdi-cast',
-              id: json[key],
-              name: key
-            }
-          )
+          room = {
+            genre: 'cast',
+            icon: 'mdi-cast',
+            id: json[key],
+            name: key
+          }
+
           break
         default:
           alert('error')
+          return
       }
+      if (room === null) { return }
+      commit('ADD_ROOMS', room)
     }
-    commit()
   },
   setUser ({ commit }, user) {
     commit('setUser', user)

@@ -18,7 +18,6 @@
           />
           <v-spacer />
           <v-btn
-            to="rooms"
             @click="AppStart()"
           >
             START
@@ -51,13 +50,14 @@ export default {
   },
   methods: {
     ...mapActions(['setUser']),
-    AppStart () {
-      this.setUser({
+    async AppStart () {
+      await this.setUser({
         name: this.userName,
         id: '111111',
         icon: ''
       })
-      this.$socket.client.emit('join', this.userName)
+      // this.$socket.client.emit('join', this.userName)
+      this.$router.replace('/rooms')
     }
   }
 }
