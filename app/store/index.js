@@ -49,7 +49,11 @@ export const state = () => ({
 export const mutations = {
   setUser: (state, user) => (state.user = user),
   setJoinedRoom: (state, room) => (state.user.room[room.genre] = room.id),
-  ADD_ROOMS: (state, rooms) => state.rooms.push(rooms)
+  ADD_ROOMS: (state, rooms) => state.rooms.push(rooms),
+  ADD_MESSAGE: (state, roomId, userName, msgContent) => state.chat[roomId].push({
+    name: userName,
+    content: msgContent
+  })
 }
 
 export const actions = {
@@ -91,6 +95,21 @@ export const actions = {
       }
       if (room === null) { return }
       commit('ADD_ROOMS', room)
+    }
+  },
+  socket_put ({ commit, state }, msg) {
+    switch (msg.lid[1]) {
+      case 'c':
+        commit('ADD_MESSAGE', msg.lid, msg.username, msg.body)
+        break
+      case 's':
+
+        break
+      case 'd':
+
+        break
+      default:
+        alert('error')
     }
   },
   setUser ({ commit }, user) {

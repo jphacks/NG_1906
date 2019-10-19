@@ -13,8 +13,15 @@
         <v-divider />
       </div>
     </v-col>
-    <v-btn @click="Debug()">
-      debug
+    <v-form>
+      <v-text-field
+        v-model="message"
+        outlined
+        label="メッセージ"
+      />
+    </v-form>
+    <v-btn @click="sendMessage()">
+      送信
     </v-btn>
   </v-row>
 </template>
@@ -29,6 +36,7 @@ export default {
   },
   data () {
     return {
+      message: ''
     }
   },
   computed: {
@@ -38,6 +46,14 @@ export default {
     Debug () {
       alert(JSON.stringify(this.user))
       alert(JSON.stringify(this.chat))
+    },
+    sendMessage () {
+      const msg = {
+        lid: this.user.room.chat,
+        username: this.user.name,
+        body: this.message
+      }
+      this.$socket.client.emit('put', msg)
     }
   }
 }
