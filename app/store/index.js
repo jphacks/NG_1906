@@ -8,37 +8,7 @@ export const state = () => ({
     file: '',
     cast: ''
   },
-  rooms: [
-    {
-      genre: 'chat',
-      icon: 'mdi-wechat',
-      id: 'roomA',
-      name: '雑談部屋１'
-    },
-    {
-      genre: 'chat',
-      icon: 'mdi-wechat',
-      id: 'roomB',
-      name: '雑談部屋２'
-    },
-    {
-      genre: 'file',
-      icon: 'mdi-folder-multiple',
-      id: 'roomC',
-      name: 'ファイル１'
-    },
-    {
-      genre: 'file',
-      icon: 'mdi-folder-multiple',
-      id: 'roomD',
-      name: 'ファイル２'
-    }
-  ],
-
-  roomA: [{ name: 'ryo', content: 'おはよう' }, { name: 'ken', content: 'おはよう' }],
-  roomB: [{ name: 'ryo', content: 'あああ' }, { name: 'ken', content: 'iiii' }],
-  roomC: [{ name: '過去問A', icon: 'mdi-file-pdf-outline', id: '222' }, { name: '練習問題A', icon: 'mdi-file-pdf-outline', id: '444' }],
-  roomD: [{ name: '練習問題', icon: 'mdi-pdf', id: '555' }],
+  rooms: [],
   rc1: [],
   rc2: []
 
