@@ -9,16 +9,21 @@ app.get("/", function(req, res) {
   res.sendFile(__dirname + "/index.html");
 });
 io.on("connection", function(socket) {
-  socket.on("c2s", function(msg) {
-    socket.join(msg.cid);
-    socket.broadcast.to(msg.cid).emit("s2l", msg);
-    console.log("c2s");
+  socket.on("put", function(msg) {
+    socket.join(msg.gid);
+    socket.broadcast.to(msg.gid).emit("put", msg);
     console.log(msg);
   });
-  socket.on("l2s", function(msg) {
-    socket.join(msg.cid);
-    socket.broadcast.to(msg.cid).emit("s2d", msg);
-    console.log("l2s");
+  socket.on("get", function(msg) {
+    socket.join(msg.gid);
+    socket.broadcast.to(msg.gid).emit("get", msg);
+    console.log("get");
+    console.log(msg);
+  });
+  socket.on("delete", function(msg) {
+    socket.join(msg.gid);
+    socket.broadcast.to(msg.gid).emit("delete", msg);
+    console.log("delete");
     console.log(msg);
   });
 });
