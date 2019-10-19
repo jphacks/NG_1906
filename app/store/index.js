@@ -48,10 +48,51 @@ export const state = () => ({
 
 export const mutations = {
   setUser: (state, user) => (state.user = user),
-  setJoinedRoom: (state, room) => (state.user.room[room.genre] = room.id)
+  setJoinedRoom: (state, room) => (state.user.room[room.genre] = room.id),
+  SOCKET_ROOMS: (state, rooms) => state.rooms.push(rooms)
 }
 
 export const actions = {
+  socket_rooms ({ commit }, json) {
+    const rooms = []
+    for (const key in json) {
+      switch (json[key][1]) {
+        case 'c':
+          rooms.push(
+            {
+              genre: 'chat',
+              icon: 'mdi-wechat',
+              id: json[key],
+              name: key
+            }
+          )
+          break
+        case 's':
+          rooms.push(
+            {
+              genre: 'file',
+              icon: 'mdi-folder-multiple',
+              id: json[key],
+              name: key
+            }
+          )
+          break
+        case 'd':
+          rooms.push(
+            {
+              genre: 'cast',
+              icon: 'mdi-cast',
+              id: json[key],
+              name: key
+            }
+          )
+          break
+        default:
+          alert('error')
+      }
+    }
+    commit()
+  },
   setUser ({ commit }, user) {
     commit('setUser', user)
   },
