@@ -31,9 +31,31 @@ $(function() {
     $("#messages").append($("<li>").text("delete"));
     $("#messages").append($("<li>").text(JSON.stringify(msg)));
   });
-  socket.on("rooms", function(msg) {
+  socket.on("rooms", function(json) {
     $("#rooms").empty();
-    $("#rooms").append($("<li>").text("rooms"));
-    $("#rooms").append($("<li>").text(JSON.stringify(msg)));
+    $("#inputState").empty();
+    var chat = "";
+    var share = "";
+    var delivery = "";
+    for (i in json) {
+      //lidの選択肢を追加
+      $("#inputState").append($("<option>").text(json[i]));
+      switch (json[i][1]) {
+        case "c":
+          chat += json[i] + ",";
+          break;
+        case "s":
+          share += json[i] + ",";
+          break;
+        case "d":
+          delivery += json[i] + ",";
+          break;
+        default:
+          console.log("error");
+      }
+    }
+    $("#rooms").append($("<li>").text("chat:" + chat));
+    $("#rooms").append($("<li>").text("share:" + share));
+    $("#rooms").append($("<li>").text("delivery:" + delivery));
   });
 });
