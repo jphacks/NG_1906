@@ -9,9 +9,9 @@ $(function() {
     let q5 = $('input[name="q5"]').val();
 
     socket.emit("put", {
-      cid: ID,
-      gid: q1,
-      username: q2,
+      lid: ID,
+      username: q1,
+      body: q2,
       query3: q3,
       query4: q4,
       query5: q5
