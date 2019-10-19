@@ -1,7 +1,7 @@
 <template>
   <v-row column justify-center align-center>
     <v-col xs="12" sm="12" md="8">
-      <div v-for="chat in chat.roomA" :key="chat.id">
+      <div v-for="chat in chat[user.room.chat]" :key="chat.id">
         <v-row>
           <v-col col="2">
             {{ chat.name }}
@@ -13,6 +13,9 @@
         <v-divider />
       </div>
     </v-col>
+    <v-btn @click="Debug()">
+      debug
+    </v-btn>
   </v-row>
 </template>
 
@@ -32,7 +35,10 @@ export default {
     ...mapState(['user', 'chat'])
   },
   methods: {
-
+    Debug () {
+      alert(JSON.stringify(this.user))
+      alert(JSON.stringify(this.chat))
+    }
   }
 }
 </script>

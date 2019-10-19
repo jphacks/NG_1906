@@ -4,6 +4,7 @@
       <v-card
         class="mx-auto"
         max-width="344"
+        @click="joinRoom(room)"
       >
         <v-card-title>
           <v-row justify="center">
@@ -26,14 +27,7 @@
             ユーザーのアイコン
           </div>
         </v-card-text>
-        <v-card-actions>
-          <v-btn
-            text
-            color="deep-purple accent-4"
-          >
-            なんらかのアクションボタン
-          </v-btn>
-        </v-card-actions>
+        <v-card-actions />
       </v-card>
       <create-room class="fiexd_btn" />
     </v-col>
@@ -41,7 +35,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 import CreateRoom from '~/components/CreateRoom.vue'
 
 export default {
@@ -57,7 +51,11 @@ export default {
     ...mapState(['user', 'rooms'])
   },
   methods: {
-
+    ...mapActions(['setJoinedRoom']),
+    async joinRoom (room) {
+      await this.setJoinedRoom(room)
+      this.$router.replace('/' + room.genre)
+    }
   }
 }
 </script>
