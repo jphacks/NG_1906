@@ -27,7 +27,7 @@ async function start () {
   // Give nuxt middleware to express
   app.use(nuxt.render)
 
-  //require('./socketIo')(io)
+  // require('./socketIo')(io)
 
   // Listen the server
   app.listen(port, host)
