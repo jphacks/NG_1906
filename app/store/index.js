@@ -20,7 +20,11 @@ export const state = () => ({
       name: 'ファイル島',
       users: [{ name: 'ryo', id: '1111', icon: '' }]
     }
-  ]
+  ],
+  chat: {
+    roomA: [{ name: 'ryo', content: 'おはよう' }, { name: 'ken', content: 'おはよう' }],
+    roomB: [{ name: 'ryo' }, { name: 'ken' }]
+  }
 })
 
 export const mutations = {
