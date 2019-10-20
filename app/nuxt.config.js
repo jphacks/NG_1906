@@ -53,6 +53,13 @@ module.exports = {
     '@nuxtjs/axios',
     '@nuxtjs/pwa'
   ],
+  manifest: {
+    lang: 'ja',
+    name: 'ROUCON',
+    short_name: 'ROUCON',
+    description: 'オフライン環境での作業支援アプリ',
+    background_color: '#000000',
+  },
   /*
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
