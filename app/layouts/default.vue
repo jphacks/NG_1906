@@ -11,9 +11,11 @@
       <!-- permanet:app-barの下に固定される -->
       <v-list>
         <v-list-item>
+          <!--
           <v-btn icon @click.stop="drawer = false">
-            <v-icon>mdi-arrow-collapse-left</v-icon>
+            <img src="/arrow-collapse-left.svg">
           </v-btn>
+          -->
         </v-list-item>
 
         <v-list-item
@@ -24,7 +26,7 @@
           exact
         >
           <v-list-item-action>
-            <v-icon>{{ item.icon }}</v-icon>
+            <img :src="item.icon">
           </v-list-item-action>
           <v-list-item-content>
             <v-list-item-title v-text="item.title" />
@@ -33,7 +35,7 @@
       </v-list>
     </v-navigation-drawer>
     <v-app-bar :clipped-left="true" fixed app>
-      <v-app-bar-nav-icon v-show="!drawer || !$vuetify.breakpoint.mdAndUp" @click.stop="drawer = !drawer" />
+      <!-- <v-app-bar-nav-icon v-show="!drawer || !$vuetify.breakpoint.mdAndUp" @click.stop="drawer = !drawer" />-->
       <v-toolbar-title v-text="title" />
 
       <!--
@@ -70,22 +72,22 @@ export default {
       fixed: true,
       items: [
         {
-          icon: 'mdi-home',
+          icon: '/home.svg',
           title: 'ホーム',
           to: '/rooms'
         },
         {
-          icon: 'mdi-wechat',
+          icon: '/wechat.svg',
           title: 'チャットルーム',
           to: '/chat'
         },
         {
-          icon: 'mdi-folder-multiple',
+          icon: '/folder-multiple.svg',
           title: 'ファイル共有'
           // to: '/file'
         },
         {
-          icon: 'mdi-cast',
+          icon: '/cast.svg',
           title: '配信'
           // to: '/cast'
         }

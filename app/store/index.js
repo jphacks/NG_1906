@@ -9,14 +9,15 @@ export const state = () => ({
     cast: ''
   },
   rooms: [],
-  rc1: [],
-  rc2: []
+  roominfo: {
+
+  }
 
 })
 
 export const mutations = {
   setUser: (state, user) => (state.user = user),
-  setRoom: (state, key) => (state[key] = []),
+  setRoom: (state, key) => (state.roominfo[key] = []),
   JoinedChat: (state, roomId) => (state.user.chat = roomId),
   JoinedFile: (state, roomId) => (state.user.file = roomId),
   JoinedCast: (state, roomId) => (state.user.cast = roomId),
@@ -27,7 +28,7 @@ export const mutations = {
 export const getters = {
   getChats (state) {
     const roomId = state.user.chat
-    return state[roomId]
+    return state.roominfo[roomId]
   }
 }
 
@@ -40,7 +41,7 @@ export const actions = {
         case 'c':
           room = {
             genre: 'chat',
-            icon: 'mdi-wechat',
+            icon: '/wechat.svg',
             id: json[key],
             name: key
           }
@@ -49,7 +50,7 @@ export const actions = {
         case 's':
           room = {
             genre: 'file',
-            icon: 'mdi-folder-multiple',
+            icon: '/folder-multiple.svg',
             id: json[key],
             name: key
           }
@@ -58,7 +59,7 @@ export const actions = {
         case 'd':
           room = {
             genre: 'cast',
-            icon: 'mdi-cast',
+            icon: '/cast.svg',
             id: json[key],
             name: key
           }

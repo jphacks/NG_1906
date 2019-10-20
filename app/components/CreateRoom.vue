@@ -60,7 +60,7 @@
             Continue
           </v-btn>
           -->
-          <v-btn text @click="dialog=false">
+          <v-btn text @click="create()">
             Cancel
           </v-btn>
         </v-stepper-content>
@@ -128,20 +128,24 @@ export default {
       dialog: false,
       selectRoom: {
         name: '',
-        icon: ''
+        icon: '',
+        category: ''
       },
       room_category: [
         {
           name: 'チャット',
-          icon: 'mdi-wechat'
+          icon: 'mdi-wechat',
+          category: 'chat'
         },
         {
           name: 'ファイル共有',
-          icon: 'mdi-folder-multiple'
+          icon: 'mdi-folder-multiple',
+          category: 'file'
         },
         {
           name: '配信',
-          icon: 'mdi-cast'
+          icon: 'mdi-cast',
+          category: 'cast'
         }
       ]
     }
@@ -150,6 +154,9 @@ export default {
     stepOne (room) {
       this.step = 2
       this.selectRoom = room
+    },
+    create () {
+      this.$socket.client.emit('room add', {})
     }
   }
 }

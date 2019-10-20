@@ -16,9 +16,7 @@
         <v-card-text>
           <v-row justify="center">
             <div>
-              <v-icon size="60px">
-                {{ room.icon }}
-              </v-icon>
+              <img :src="room.icon" width="80px" height="80px">
             </div>
           </v-row>
           <br>
