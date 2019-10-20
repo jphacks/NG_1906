@@ -86,7 +86,7 @@
           </v-container>
           <v-btn
             color="primary"
-            @click="createRoom()"
+            @click="dialog=false"
           >
             ルーム作成
           </v-btn>

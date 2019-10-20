@@ -33,7 +33,7 @@
         </div>
       </v-container>
     </v-col>
-    <v-form class="fixed_send">
+    <v-form class="fixed_send" @submit.prevent="sendMessage()">
       <v-row>
         <v-col cols="10">
           <v-text-field

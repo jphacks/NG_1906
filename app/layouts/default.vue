@@ -81,13 +81,13 @@ export default {
         },
         {
           icon: 'mdi-folder-multiple',
-          title: 'ファイル共有',
-          to: '/file'
+          title: 'ファイル共有'
+          // to: '/file'
         },
         {
           icon: 'mdi-cast',
-          title: '配信',
-          to: '/cast'
+          title: '配信'
+          // to: '/cast'
         }
       ],
       category: [
