@@ -23,9 +23,7 @@
           </v-row>
           <br>
           <v-divider />
-          <div class="text--primary">
-            ユーザーのアイコン
-          </div>
+          <div class="text--primary" />
         </v-card-text>
         <v-card-actions />
       </v-card>

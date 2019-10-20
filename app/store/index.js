@@ -8,39 +8,10 @@ export const state = () => ({
     file: '',
     cast: ''
   },
-  rooms: [
-    {
-      genre: 'chat',
-      icon: 'mdi-wechat',
-      id: 'roomA',
-      name: '雑談部屋１'
-    },
-    {
-      genre: 'chat',
-      icon: 'mdi-wechat',
-      id: 'roomB',
-      name: '雑談部屋２'
-    },
-    {
-      genre: 'file',
-      icon: 'md i-folder-multiple',
-      id: 'roomC',
-      name: 'ファイル１'
-    },
-    {
-      genre: 'file',
-      icon: 'mdi-folder-multiple',
-      id: 'roomD',
-      name: 'ファイル２'
-    }
-  ],
-
-  roomA: [{ name: 'ryo', content: 'おはよう' }, { name: 'ken', content: 'おはよう' }],
-  roomB: [{ name: 'ryo', content: 'あああ' }, { name: 'ken', content: 'iiii' }],
-  roomC: [{ name: '過去問A', icon: 'mdi-file-pdf-outline', id: '222' }, { name: '練習問題A', icon: 'mdi-file-pdf-outline', id: '444' }],
-  roomD: [{ name: '練習問題', icon: 'mdi-pdf', id: '555' }],
+  rooms: [],
   rc1: [],
   rc2: []
+
 })
 
 export const mutations = {
@@ -106,7 +77,8 @@ export const actions = {
       case 'c':
         const date = {
           name: msg.username,
-          content: msg.body
+          content: msg.body,
+          mine: false
         }
         commit('ADD_MESSAGE', { id: msg.lid, index: date })
         break
@@ -122,6 +94,15 @@ export const actions = {
   },
   setUser ({ commit }, user) {
     commit('setUser', user)
+  },
+  setMessage ({ commit }, msg) {
+    commit('ADD_MESSAGE', { id: msg.lid,
+      index: {
+        name: msg.username,
+        content: msg.body,
+        mine: true
+      }
+    })
   },
   async setJoinedRoom ({ commit, state }, room) {
     try {
