@@ -22,7 +22,7 @@ export const mutations = {
   JoinedFile: (state, roomId) => (state.user.file = roomId),
   JoinedCast: (state, roomId) => (state.user.cast = roomId),
   ADD_ROOMS: (state, rooms) => state.rooms.push(rooms),
-  ADD_MESSAGE: (state, { id, index }) => state[id].push(index)
+  ADD_MESSAGE: (state, { id, index }) => state.roominfo[id].push(index)
 }
 
 export const getters = {

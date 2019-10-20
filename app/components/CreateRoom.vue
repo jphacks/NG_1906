@@ -35,11 +35,7 @@
                   @click="stepOne(room)"
                 >
                   <v-card-title>
-                    <v-row justify="center">
-                      <v-icon size="80px">
-                        {{ room.icon }}
-                      </v-icon>
-                    </v-row>
+                    <v-row justify="center"/>
                   </v-card-title>
                   <v-card-text>
                     <v-row justify="center">
@@ -60,7 +56,7 @@
             Continue
           </v-btn>
           -->
-          <v-btn text @click="create()">
+          <v-btn text @click="dialog=false">
             Cancel
           </v-btn>
         </v-stepper-content>
@@ -68,11 +64,6 @@
         <v-stepper-content step="2">
           <v-container class="stepper-content">
             <v-row justify="space-around" align="center">
-              <v-col>
-                <v-icon size="150px">
-                  {{ selectRoom.icon }}
-                </v-icon>
-              </v-col>
               <v-col>
                 <v-form>
                   <v-text-field
@@ -128,24 +119,20 @@ export default {
       dialog: false,
       selectRoom: {
         name: '',
-        icon: '',
-        category: ''
+        icon: ''
       },
       room_category: [
         {
           name: 'チャット',
-          icon: 'mdi-wechat',
-          category: 'chat'
+          icon: 'mdi-wechat'
         },
         {
           name: 'ファイル共有',
-          icon: 'mdi-folder-multiple',
-          category: 'file'
+          icon: 'mdi-folder-multiple'
         },
         {
           name: '配信',
-          icon: 'mdi-cast',
-          category: 'cast'
+          icon: 'mdi-cast'
         }
       ]
     }
@@ -154,9 +141,6 @@ export default {
     stepOne (room) {
       this.step = 2
       this.selectRoom = room
-    },
-    create () {
-      this.$socket.client.emit('room add', {})
     }
   }
 }
