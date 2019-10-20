@@ -7,7 +7,8 @@ export default ({ store, isHMR, isClient }) => {
       paths: [
         'chat',
         'file',
-        'cast'
+        'cast',
+        'roominfo'
       ]
     })(store) // vuex plugins can be connected to store, even after creation
   })

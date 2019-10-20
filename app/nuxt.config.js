@@ -24,7 +24,7 @@ module.exports = {
    */
   loading: { color: '#fff' },
   generate: {
-    dir:'../hard/public/dist'
+    dir: '../hard/public/dist'
   },
   /*
    ** Global CSS
@@ -58,7 +58,7 @@ module.exports = {
     name: 'ROUCON',
     short_name: 'ROUCON',
     description: 'オフライン環境での作業支援アプリ',
-    background_color: '#000000',
+    background_color: '#000000'
   },
   /*
    ** Axios module configuration
