@@ -2,6 +2,7 @@
 
 [![Product Name](image.png)](https://www.powtoon.com/c/dKOFGsZEMAo/1/m)
 
+https://www.powtoon.com/c/dKOFGsZEMAo/1/m
 ## 製品概要
 
 ### 無線 LAN X Tech
