@@ -5,6 +5,7 @@ export default ({ store, isHMR, isClient }) => {
   window.onNuxtReady((nuxt) => {
     createPersistedState({
       paths: [
+        'user',
         'chat',
         'file',
         'cast',

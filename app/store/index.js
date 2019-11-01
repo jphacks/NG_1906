@@ -4,9 +4,9 @@ export const state = () => ({
     name: '',
     id: '',
     // ユーザーが現在入っているルームの情報
-    chat: '',
-    file: '',
-    cast: ''
+    chat: { id: '', name: 'チャット' },
+    file: { id: '', name: 'ファイル' },
+    cast: { id: '', name: '' }
   },
   rooms: [],
   roominfo: {
@@ -18,17 +18,16 @@ export const state = () => ({
 export const mutations = {
   setUser: (state, user) => (state.user = user),
   setRoom: (state, key) => (state.roominfo[key] = []),
-  JoinedChat: (state, roomId) => (state.user.chat = roomId),
-  JoinedFile: (state, roomId) => (state.user.file = roomId),
-  JoinedCast: (state, roomId) => (state.user.cast = roomId),
+  JoinedChat: (state, { roomId, roomName }) => (state.user.chat = { id: roomId, name: roomName }),
+  JoinedFile: (state, { roomId, roomName }) => (state.user.file = { id: roomId, name: roomName }),
+  JoinedCast: (state, { roomId, roomName }) => (state.user.cast = { id: roomId, name: roomName }),
   ADD_ROOMS: (state, rooms) => state.rooms.push(rooms),
   ADD_MESSAGE: (state, { id, index }) => state.roominfo[id].push(index)
 }
 
 export const getters = {
   getChats (state) {
-    const roomId = state.user.chat
-    return state.roominfo[roomId]
+    return state.roominfo[state.user.chat.id]
   }
 }
 
@@ -97,7 +96,8 @@ export const actions = {
     commit('setUser', user)
   },
   setMessage ({ commit }, msg) {
-    commit('ADD_MESSAGE', { id: msg.lid,
+    commit('ADD_MESSAGE', {
+      id: msg.lid,
       index: {
         name: msg.username,
         content: msg.body,
@@ -107,15 +107,16 @@ export const actions = {
   },
   async setJoinedRoom ({ commit, state }, room) {
     try {
+      const roomData = { roomId: room.id, roomName: room.name }
       switch (room.genre) {
         case 'chat':
-          await commit('JoinedChat', room.id)
+          await commit('JoinedChat', roomData)
           break
         case 'file':
-          await commit('JoinedFile', room.id)
+          await commit('JoinedFile', roomData)
           break
         case 'cast':
-          await commit('JoinedCast', room.id)
+          await commit('JoinedCast', roomData)
           break
         default:
           break

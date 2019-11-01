@@ -1,8 +1,9 @@
 <template>
   <v-row column justify="center" align="center">
     <v-col xs="12" sm="12" md="8">
+      {{ user.chat.name }}
       <v-container class="chat-container">
-        <div v-for="chat in getChats" :key="chat.id">
+        <div v-for="chat in roominfo[user.chat.id]" :key="chat.id">
           <v-row>
             <v-col v-if="chat.mine" xs="10" sm="10" md="10">
               {{ chat.content }}
@@ -54,7 +55,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters, mapActions } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 
 export default {
   name: 'Chat',
@@ -67,14 +68,14 @@ export default {
     }
   },
   computed: {
-    ...mapState(['user', 'chat']),
-    ...mapGetters(['getChats'])
+    ...mapState(['user', 'chat', 'roominfo'])
+    // ...mapGetters(['getChats'])
   },
   methods: {
     ...mapActions(['setMessage']),
     async sendMessage () {
       const msg = {
-        lid: this.user.chat,
+        lid: this.user.chat.id,
         username: this.user.name,
         body: this.message
       }
