@@ -1,7 +1,15 @@
 <template>
   <v-row column justify="center" align="center">
     <v-col xs="12" sm="12" md="8">
-      {{ user.chat.name }}
+      <v-chip
+        class="ma-1"
+        color="primary"
+        outlined
+        pill
+      >
+        {{ user.chat.name }}
+      </v-chip>
+
       <v-container class="chat-container">
         <div v-for="chat in roominfo[user.chat.id]" :key="chat.id">
           <v-row>

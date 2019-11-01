@@ -83,13 +83,13 @@ export default {
         },
         {
           icon: '/folder-multiple.svg',
-          title: 'ファイル共有'
-          // to: '/file'
+          title: 'ファイル共有',
+          to: '/file'
         },
         {
           icon: '/cast.svg',
-          title: '配信'
-          // to: '/cast'
+          title: '配信',
+          to: '/cast'
         }
       ],
       category: [

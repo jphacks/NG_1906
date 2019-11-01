@@ -58,7 +58,12 @@ module.exports = {
     name: 'ROUCON',
     short_name: 'ROUCON',
     description: 'オフライン環境での作業支援アプリ',
-    background_color: '#000000'
+    background_color: '#000000',
+    orientation: 'portrait'
+  },
+  meta: { // iOS用の設定
+    mobileAppIOS: true,
+    appleStatusBarStyle: 'black'
   },
   /*
    ** Axios module configuration
@@ -90,6 +95,14 @@ module.exports = {
    ** Build configuration
    */
   build: {
+    filenames: {
+      app: () => '[name].js',
+      chunk: () => '[name].js',
+      css: () => '[name].js',
+      img: () => '[path][name].[ext]',
+      font: () => '[path][name].[ext]',
+      video: () => '[path][name].[ext]'
+    },
     /*
      ** You can extend webpack config here
      */

@@ -6,7 +6,7 @@ export const state = () => ({
     // ユーザーが現在入っているルームの情報
     chat: { id: '', name: 'チャット' },
     file: { id: '', name: 'ファイル' },
-    cast: { id: '', name: '' }
+    cast: { id: '', name: '配信' }
   },
   rooms: [],
   roominfo: {
