@@ -22,7 +22,8 @@ export const mutations = {
   JoinedFile: (state, { roomId, roomName }) => (state.user.file = { id: roomId, name: roomName }),
   JoinedCast: (state, { roomId, roomName }) => (state.user.cast = { id: roomId, name: roomName }),
   ADD_ROOMS: (state, rooms) => state.rooms.push(rooms),
-  ADD_MESSAGE: (state, { id, index }) => state.roominfo[id].push(index)
+  ADD_MESSAGE: (state, { id, body }) => state.roominfo[id].push(body),
+  ADD_FILE: (state, { id, body }) => state.roominfo[id].push(body)
 }
 
 export const getters = {
@@ -32,6 +33,7 @@ export const getters = {
 }
 
 export const actions = {
+  // 受信したルームの処理
   socket_rooms ({ commit, state }, json) {
     for (const key in json) {
       let room = null
@@ -72,18 +74,26 @@ export const actions = {
       commit('ADD_ROOMS', room)
     }
   },
+  // 受信したデータ処理
   socket_put ({ commit, state }, msg) {
+    console.log(JSON.stringify(msg))
     switch (msg.lid[1]) {
+      // chat message
       case 'c':
-        const date = {
+        const chatDate = {
           name: msg.username,
           content: msg.body,
           mine: false
         }
-        commit('ADD_MESSAGE', { id: msg.lid, index: date })
+        commit('ADD_MESSAGE', { id: msg.lid, body: chatDate })
         break
+      // file
       case 's':
-
+        const date = {
+          name: msg.username,
+          content: msg.body
+        }
+        commit('ADD_FILE', { id: msg.lid, body: date })
         break
       case 'd':
 
@@ -98,10 +108,19 @@ export const actions = {
   setMessage ({ commit }, msg) {
     commit('ADD_MESSAGE', {
       id: msg.lid,
-      index: {
+      body: {
         name: msg.username,
         content: msg.body,
         mine: true
+      }
+    })
+  },
+  setFile ({ commit }, msg) {
+    commit('ADD_FILE', {
+      id: msg.lid,
+      body: {
+        name: msg.username,
+        content: msg.body
       }
     })
   },

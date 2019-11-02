@@ -14,7 +14,7 @@
     </v-row>
     <v-row justify-center align-center>
       <v-col
-        v-for="(file, index) in files"
+        v-for="(file, index) in roominfo[user.file.id]"
         :key="index "
         col="4"
         sm="4"
@@ -26,14 +26,14 @@
           height="150"
         >
           <v-img
-            :src="images[index]"
+            :src="file.content.data"
             height="100"
           />
 
           <!-- {{file.type}} -->
           <div>
             <p class="textOverFlow">
-              {{ file.name }}
+              {{ file.content.name }}
             </p>
           </div>
           <!--
@@ -59,7 +59,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 
 export default {
   name: 'Files',
@@ -74,9 +74,10 @@ export default {
     }
   },
   computed: {
-    ...mapState(['user'])
+    ...mapState(['user', 'roominfo'])
   },
   methods: {
+    ...mapActions(['setFile']),
     checkDrag (event, key, status) {
       this.isDrag = status ? key : null
       if (status) {
@@ -96,13 +97,27 @@ export default {
         const reader = new FileReader()
         reader.onload = () => {
           // reader.resultはbase64にエンコードされたデータが入る
-          this.images.push(reader.result)
+          // this.images.push(reader.result)
+          const fileData = {
+            lid: this.user.file.id,
+            username: this.user.name,
+            body: {
+              name: fileList[i].name,
+              type: fileList[i].type,
+              data: reader.result
+            }
+          }
+          this.sendFile(fileData)
         }
         reader.readAsDataURL(fileList[i])
 
-        this.files.push(fileList[i])
+        // this.files.push(fileList[i])
       }
-      this.msg = 'ファイル数は' + fileList.length + 'です。'
+      this.msg = 'アップロードしました。'
+    },
+    async sendFile (fileData) {
+      this.setFile(fileData)
+      await this.$socket.client.emit('put', fileData)
     }
   }
 }
