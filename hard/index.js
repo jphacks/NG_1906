@@ -14,7 +14,7 @@ io.on("connection", function(socket) {
   socket.on("put", function(msg) {
     socket.join(msg.lid);
     socket.broadcast.to(msg.lid).emit("put", msg);
-    console.log(msg);
+    //console.log(msg);
   });
   socket.on("get", function(msg) {
     socket.join(msg.lid);
