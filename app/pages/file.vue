@@ -24,6 +24,7 @@
         <v-card
           class="mx-auto"
           height="150"
+          @click="downloadFile(file.content.data,file.content.name)"
         >
           <v-img
             :src="file.content.data"
@@ -60,6 +61,8 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
+// import { JSZip } from 'jszip'
+import { saveAs } from 'file-saver'
 
 export default {
   name: 'Files',
@@ -86,6 +89,43 @@ export default {
         // action
       }
     },
+    downloadFile (base64, fileName) {
+      /*
+      const zip = new JSZip()
+      // for (let i = 0; i < this.fileList.length; i++) {
+      zip.file('img.png', base64.split(',')[1], { base64: true })
+      // }
+      zip.generateAsync({ type: 'blob' })
+        .then(function (content) {
+         saveAs(content, 'images.zip')
+        })
+        */
+      saveAs(this.toBlob(base64), fileName)
+    },
+    toBlob (base64) {
+      // 日本語の文字化けに対処するためBOMを作成する。
+      let blob
+      try {
+        // const bom = new Uint8Array([0xEF, 0xBB, 0xBF])
+
+        const bin = atob(base64.replace(/^.*,/, ''))
+        alert(base64)
+        alert(base64.replace(/^.*,/, ''))
+        const buffer = new Uint8Array(bin.length)
+        for (let i = 0; i < bin.length; i++) {
+          buffer[i] = bin.charCodeAt(i)
+        }
+        // eslint-disable-next-line no-useless-escape
+        const mimeType = base64.split(',')[0].match(/[^:\s*]\w+\/[\w-+\d.]+(?=[;| ])/)[0]
+        alert(mimeType)
+        blob = new Blob([buffer.buffer], {
+          type: mimeType
+        })
+      } catch (e) {
+        return false
+      }
+      return blob
+    },
     onDrop (event) {
       this.isDrag = null
       // ドロップされたファイル:event.target.files
@@ -103,7 +143,6 @@ export default {
             username: this.user.name,
             body: {
               name: fileList[i].name,
-              type: fileList[i].type,
               data: reader.result
             }
           }
