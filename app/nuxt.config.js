@@ -57,13 +57,20 @@ module.exports = {
     lang: 'ja',
     name: 'ROUCON',
     short_name: 'ROUCON',
-    description: 'オフライン環境での作業支援アプリ',
-    background_color: '#000000',
-    orientation: 'portrait'
+    display: 'standalone',
+    theme_color: '#ffffff',
+    background_color: '#ffffff',
+    start_url: '/',
+    icons: [
+      {
+        src: '/icon.png',
+        sizes: '260x260',
+        type: 'image/png'
+      }
+    ]
   },
-  meta: { // iOS用の設定
-    mobileAppIOS: true,
-    appleStatusBarStyle: 'black'
+  workbox: {
+    dev: true// Put workbox module into development mode based on current NODE_ENV variable
   },
   /*
    ** Axios module configuration
