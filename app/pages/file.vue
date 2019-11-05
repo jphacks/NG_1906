@@ -109,15 +109,12 @@ export default {
         // const bom = new Uint8Array([0xEF, 0xBB, 0xBF])
 
         const bin = atob(base64.replace(/^.*,/, ''))
-        alert(base64)
-        alert(base64.replace(/^.*,/, ''))
         const buffer = new Uint8Array(bin.length)
         for (let i = 0; i < bin.length; i++) {
           buffer[i] = bin.charCodeAt(i)
         }
         // eslint-disable-next-line no-useless-escape
         const mimeType = base64.split(',')[0].match(/[^:\s*]\w+\/[\w-+\d.]+(?=[;| ])/)[0]
-        alert(mimeType)
         blob = new Blob([buffer.buffer], {
           type: mimeType
         })
