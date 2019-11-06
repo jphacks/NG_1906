@@ -35,7 +35,7 @@
                   @click="stepOne(room)"
                 >
                   <v-card-title>
-                    <v-row justify="center"/>
+                    <v-row justify="center" />
                   </v-card-title>
                   <v-card-text>
                     <v-row justify="center">
