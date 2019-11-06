@@ -76,6 +76,7 @@ export const actions = {
   },
   // 受信したデータ処理
   socket_put ({ commit, state }, msg) {
+    // eslint-disable-next-line no-console
     console.log(JSON.stringify(msg))
     switch (msg.lid[1]) {
       // chat message
