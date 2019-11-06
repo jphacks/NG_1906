@@ -70,7 +70,9 @@ module.exports = {
     ]
   },
   workbox: {
-    dev: true// Put workbox module into development mode based on current NODE_ENV variable
+    // importScripts: ['workbox-v4.3.1/workbox-sw.js'],
+    swURL: 'custom-sw.js',
+    dev: true// Put workbox module into development mode based on current NODE_ENV variable,
   },
   /*
    ** Axios module configuration
