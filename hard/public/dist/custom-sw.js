@@ -1,4 +1,4 @@
-importScripts('https://cdn.jsdelivr.net/npm/workbox-cdn@4.3.1/workbox/workbox-sw.js')
+importScripts('../workbox-v4.3.1/workbox-sw.js')
 
 // --------------------------------------------------
 // Configure
@@ -6,7 +6,8 @@ importScripts('https://cdn.jsdelivr.net/npm/workbox-cdn@4.3.1/workbox/workbox-sw
 
 // Set workbox config
 workbox.setConfig({
-  "debug": true
+  modulePathPrefix: '../workbox-v4.3.1/',
+  'debug': true
 })
 
 // Start controlling any existing clients as soon as it activates
@@ -28,5 +29,5 @@ workbox.precaching.cleanupOutdatedCaches()
 // --------------------------------------------------
 
 // Register route handlers for runtimeCaching
-workbox.routing.registerRoute(new RegExp('/_nuxt/'), new workbox.strategies.CacheFirst ({}), 'GET')
-workbox.routing.registerRoute(new RegExp('/'), new workbox.strategies.NetworkFirst ({}), 'GET')
+workbox.routing.registerRoute(new RegExp('/_nuxt/'), new workbox.strategies.NetworkFirst({}), 'GET')
+workbox.routing.registerRoute(new RegExp('/'), new workbox.strategies.NetworkFirst({}), 'GET')
