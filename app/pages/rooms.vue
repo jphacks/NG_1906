@@ -22,7 +22,6 @@
           <!-- $vuetify.breakpoint.mdAndUp" -->
           <v-img :src="room.icon" contain height="100" />
         </v-card>
-        <create-room class="fiexd_btn" />
       </v-col>
     </v-row>
   </v-container>
@@ -30,12 +29,11 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
-import CreateRoom from '~/components/CreateRoom.vue'
 
 export default {
   name: 'Rooms',
   components: {
-    CreateRoom
+
   },
   data () {
     return {
