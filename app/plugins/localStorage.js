@@ -9,7 +9,8 @@ export default ({ store, isHMR, isClient }) => {
         'chat',
         'file',
         'cast',
-        'roominfo'
+        'roominfo',
+        'rooms'
       ]
     })(store) // vuex plugins can be connected to store, even after creation
   })

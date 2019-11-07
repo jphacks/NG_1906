@@ -38,41 +38,43 @@ export const actions = {
   socket_rooms ({ commit, state }, json) {
     for (const key in json) {
       let room = null
-      if (state[json[key]] === null || state[json[key]] === undefined) { commit('setRoom', json[key]) }
-      switch (json[key][1]) {
-        case 'c':
-          room = {
-            genre: 'chat',
-            icon: '/wechat.svg',
-            id: json[key],
-            name: key
-          }
+      if (!(json[key] in state.roominfo)) {
+        commit('setRoom', json[key])
+        switch (json[key][1]) {
+          case 'c':
+            room = {
+              genre: 'chat',
+              icon: '/wechat.svg',
+              id: json[key],
+              name: key
+            }
 
-          break
-        case 's':
-          room = {
-            genre: 'file',
-            icon: '/folder-multiple.svg',
-            id: json[key],
-            name: key
-          }
+            break
+          case 's':
+            room = {
+              genre: 'file',
+              icon: '/folder-multiple.svg',
+              id: json[key],
+              name: key
+            }
 
-          break
-        case 'd':
-          room = {
-            genre: 'cast',
-            icon: '/cast.svg',
-            id: json[key],
-            name: key
-          }
+            break
+          case 'd':
+            room = {
+              genre: 'cast',
+              icon: '/cast.svg',
+              id: json[key],
+              name: key
+            }
 
-          break
-        default:
-          alert('error')
-          return
+            break
+          default:
+            alert('error')
+            return
+        }
+        if (room === null) { return }
+        commit('ADD_ROOMS', room)
       }
-      if (room === null) { return }
-      commit('ADD_ROOMS', room)
     }
   },
   // 受信したデータ処理
