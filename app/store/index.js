@@ -4,10 +4,10 @@ export const state = () => ({
     name: '',
     id: '',
     // ユーザーが現在入っているルームの情報
-    chat: { id: '', name: 'チャット' },
-    file: { id: '', name: 'ファイル' },
-    cast: { id: '', name: '配信' }
+    room: { id: '', name: '' }
   },
+  userChat: [],
+  userFile: [],
   rooms: [],
   roominfo: {
 
@@ -18,9 +18,10 @@ export const state = () => ({
 export const mutations = {
   setUser: (state, user) => (state.user = user),
   setRoom: (state, key) => (state.roominfo[key] = []),
-  JoinedChat: (state, { roomId, roomName }) => (state.user.chat = { id: roomId, name: roomName }),
-  JoinedFile: (state, { roomId, roomName }) => (state.user.file = { id: roomId, name: roomName }),
-  JoinedCast: (state, { roomId, roomName }) => (state.user.cast = { id: roomId, name: roomName }),
+  joinRoom: (state, room) => (state.user.room = room),
+  JoinedChat: (state, room) => (state.userChat.push(room)),
+  JoinedFile: (state, room) => (state.userFile.push(room)),
+  JoinedCast: (state, room) => (state.user.cast.push(room)),
   ADD_ROOMS: (state, rooms) => state.rooms.push(rooms),
   ADD_MESSAGE: (state, { id, body }) => state.roominfo[id].push(body),
   ADD_FILE: (state, { id, body }) => state.roominfo[id].push(body)
@@ -126,17 +127,17 @@ export const actions = {
     })
   },
   async setJoinedRoom ({ commit, state }, room) {
+    commit('joinRoom', { id: room.id, name: room.name })
     try {
-      const roomData = { roomId: room.id, roomName: room.name }
       switch (room.genre) {
         case 'chat':
-          await commit('JoinedChat', roomData)
+          await commit('JoinedChat', room)
           break
         case 'file':
-          await commit('JoinedFile', roomData)
+          await commit('JoinedFile', room)
           break
         case 'cast':
-          await commit('JoinedCast', roomData)
+          await commit('JoinedCast', room)
           break
         default:
           break

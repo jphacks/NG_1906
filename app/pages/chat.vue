@@ -7,25 +7,13 @@
         outlined
         pill
       >
-        {{ user.chat.name }}
+        {{ user.room.name }}
       </v-chip>
 
       <v-container class="chat-container">
-        <div v-for="chat in roominfo[user.chat.id]" :key="chat.id">
+        <div v-for="chat in roominfo[user.room.id]" :key="chat.id">
           <v-row>
-            <v-col v-if="chat.mine" xs="10" sm="10" md="10">
-              {{ chat.content }}
-            </v-col>
-            <v-col v-if="chat.mine" xs="2" sm="2" md="2">
-              <v-chip
-                class="ma-2"
-                color="indigo"
-                text-color="white"
-              >
-                {{ chat.name }}
-              </v-chip>
-            </v-col>
-            <v-col v-if="!chat.mine" xs="2" sm="2" md="2">
+            <v-col xs="2" sm="2" md="2">
               <v-chip
                 class="ma-2"
                 color="green"
@@ -34,15 +22,17 @@
                 {{ chat.name }}
               </v-chip>
             </v-col>
-            <v-col v-if="!chat.mine" xs="10" sm="10" md="10">
-              {{ chat.content }}
+            <v-col xs="9" sm="9" md="9">
+              <p class="word-break-break-word">
+                {{ chat.content }}
+              </p>
             </v-col>
           </v-row>
           <v-divider />
         </div>
       </v-container>
     </v-col>
-    <v-form class="fixed_send" @submit.prevent="sendMessage()">
+    <v-form class="fixed_send " @submit.prevent="sendMessage()">
       <v-row>
         <v-col cols="10">
           <v-text-field
@@ -53,7 +43,7 @@
           />
         </v-col>
         <v-col cols="2">
-          <v-btn @click="sendMessage()">
+          <v-btn color="success" @click="sendMessage()">
             送信
           </v-btn>
         </v-col>
@@ -83,7 +73,7 @@ export default {
     ...mapActions(['setMessage']),
     async sendMessage () {
       const msg = {
-        lid: this.user.chat.id,
+        lid: this.user.room.id,
         username: this.user.name,
         body: this.message
       }
@@ -106,4 +96,7 @@ export default {
 .chat-container{
   margin-bottom: 200px;
 }
+.word-break-break-word {
+    word-break: break-word;
+  }
 </style>

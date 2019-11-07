@@ -1,33 +1,31 @@
 <template>
-  <v-row column justify-center align-center>
-    <v-col v-for="room in rooms" :key="room.id" md="3">
-      <v-card
-        class="mx-auto"
-        max-width="344"
-        @click="joinRoom(room)"
+  <v-container>
+    <v-row align-center>
+      <v-col
+        v-for="room in rooms"
+        :key="room.id"
+        col="4"
+        sm="4"
+        md="2"
+        lg="2"
       >
-        <v-card-title>
-          <v-row justify="center">
-            <p class="display-1 text--primary mx-auto">
+        <v-card
+          class="mx-auto"
+          height="150"
+          @click="joinRoom(room)"
+        >
+          <div class="pl-4 pt-4">
+            <h4 class="textOverFlow ">
               {{ room.name }}
-            </p>
-          </v-row>
-        </v-card-title>
-        <v-card-text>
-          <v-row justify="center">
-            <div>
-              <img :src="room.icon" width="80px" height="80px">
-            </div>
-          </v-row>
-          <br>
-          <v-divider />
-          <div class="text--primary" />
-        </v-card-text>
-        <v-card-actions />
-      </v-card>
-      <create-room class="fiexd_btn" />
-    </v-col>
-  </v-row>
+            </h4>
+          </div>
+          <!-- $vuetify.breakpoint.mdAndUp" -->
+          <v-img :src="room.icon" contain height="100" />
+        </v-card>
+        <create-room class="fiexd_btn" />
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
@@ -41,16 +39,28 @@ export default {
   },
   data () {
     return {
+
     }
   },
   computed: {
-    ...mapState(['user', 'rooms'])
+    ...mapState(['user', 'rooms', 'userChat', 'userFile'])
   },
   methods: {
     ...mapActions(['setJoinedRoom']),
-    async joinRoom (room) {
-      await this.setJoinedRoom(room)
-      await this.$router.replace('/' + room.genre)
+    joinRoom (room) {
+      for (let i = 0; i < this.userChat.length; i++) {
+        if (this.userChat[i].id === room.id) {
+          return
+        }
+      }
+      for (let i = 0; i < this.userFile.length; i++) {
+        if (this.userFile[i].id === room.id) {
+          return
+        }
+      }
+
+      this.setJoinedRoom(room)
+      this.$router.replace('/' + room.genre)
     }
   }
 }
@@ -62,5 +72,13 @@ export default {
   bottom: 70px;
   right: 50px;
   padding: 6px 40px;
+}
+
+.textOverFlow
+{
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
 }
 </style>

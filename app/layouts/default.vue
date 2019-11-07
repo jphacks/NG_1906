@@ -11,25 +11,83 @@
       <!-- permanet:app-barの下に固定される -->
       <v-list>
         <v-list-item>
-          <!--
-          <v-btn icon @click.stop="drawer = false">
+          <v-btn v-if="!miniVariant" icon @click.stop="miniVariant = true">
             <img src="/arrow-collapse-left.svg">
           </v-btn>
-          -->
+          <v-btn v-if="miniVariant" icon @click.stop="miniVariant = false">
+            <img src="/arrow-collapse-right.svg">
+          </v-btn>
         </v-list-item>
-
         <v-list-item
-          v-for="(item, i) in items"
-          :key="i"
-          :to="item.to"
+          router
+          exact
+          to="/rooms"
+        >
+          <v-list-item-action>
+            <img src="/home.svg">
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>
+              ルーム
+            </v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+        <!--
+        <v-list-item
           router
           exact
         >
           <v-list-item-action>
-            <img :src="item.icon">
+            <img src="/wechat.svg">
           </v-list-item-action>
           <v-list-item-content>
-            <v-list-item-title v-text="item.title" />
+            <v-list-item-title>
+              チャットルーム
+            </v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+        -->
+        <v-list-item
+          v-for="chat in userChat"
+          :key="chat.id"
+          router
+          exact
+          @click="joinRoom(chat)"
+        >
+          <v-list-item-action>
+            <img :src="chat.icon">
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title v-text="chat.name" />
+          </v-list-item-content>
+        </v-list-item>
+        <!--
+        <v-list-item
+          router
+          exact
+        >
+          <v-list-item-action>
+            <img src="/folder-multiple.svg">
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>
+              ファイル共有
+            </v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+        -->
+        <v-list-item
+          v-for="file in userFile"
+          :key="file.id"
+          router
+          exact
+          @click="joinRoom(file)"
+        >
+          <v-list-item-action>
+            <img :src="file.icon">
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title v-text="file.name" />
           </v-list-item-content>
         </v-list-item>
       </v-list>
@@ -62,6 +120,7 @@
 
 <script>
 
+import { mapState, mapMutations } from 'vuex'
 export default {
   components: {
   },
@@ -95,15 +154,22 @@ export default {
       category: [
 
       ],
-      miniVariant: true,
+      miniVariant: false,
       right: true,
       title: 'ROUCON'
     }
   },
   computed: {
+    ...mapState(['user', 'userChat', 'userFile'])
+
   },
   methods: {
-
+    ...mapMutations(['joinRoom']),
+    async joinRoom (room) {
+      if (this.user.room.id === room.id) { return }
+      await this.$store.commit('joinRoom', { id: room.id, name: room.name })
+      await this.$router.replace('/' + room.genre)
+    }
   }
 }
 </script>

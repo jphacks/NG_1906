@@ -3,7 +3,7 @@ var app = express();
 var http = require("http").Server(app);
 const io = require("socket.io")(http);
 const PORT = process.env.PORT || 7000;
-var rooms = { "chat room": "rc1", "world wide web": "rc2" ,"過去問": "rs1","会議資料":"rs2"};
+var rooms = { "連絡ルーム": "rc1", "雑談ルーム": "rc2" ,"写真": "rs1","会議資料":"rs2"};
 app.use(express.static(__dirname + "/public/dist"));
 app.get("/", function(req, res) {
   res.sendFile(__dirname + "/index.html");

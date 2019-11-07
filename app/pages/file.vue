@@ -14,7 +14,7 @@
     </v-row>
     <v-row justify-center align-center>
       <v-col
-        v-for="(file, index) in roominfo[user.file.id]"
+        v-for="(file, index) in roominfo[user.room.id]"
         :key="index "
         col="4"
         sm="4"
@@ -136,7 +136,7 @@ export default {
           // reader.resultはbase64にエンコードされたデータが入る
           // this.images.push(reader.result)
           const fileData = {
-            lid: this.user.file.id,
+            lid: this.user.room.id,
             username: this.user.name,
             body: {
               name: fileList[i].name,
@@ -149,7 +149,6 @@ export default {
 
         // this.files.push(fileList[i])
       }
-      this.msg = 'アップロードしました。'
     },
     async sendFile (fileData) {
       this.setFile(fileData)

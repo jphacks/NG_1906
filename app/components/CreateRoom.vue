@@ -1,7 +1,7 @@
 <template>
   <v-dialog v-model="dialog" persistent max-width="800">
     <template v-slot:activator="{ on }">
-      <v-btn class="fixed_btn" v-on="on">
+      <v-btn class="fixed_btn" color="success" v-on="on">
         新規作成
       </v-btn>
     </template>
